@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  ollama-setup:
+    image: ollama/ollama:latest
+    depends_on:
+      ollama:
+        condition: service_healthy
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    entrypoint: >
+      /bin/bash -c "
+        echo '🔥 Baixando modelo inicial...' &&
+        echo '📦 Baixando Gemma 1B (padrão)...' &&
+        ollama pull gemma3:1b &&
+        echo '📦 Baixando modelo de embedding...' &&
+        ollama pull nomic-embed-text &&
+        echo '✅ Modelos essenciais baixados!' &&
+        echo 'ℹ️  Outros modelos serão baixados sob demanda.'
+      "
+    restart: "no"
+
+  krag:
+    build: .
+    ports:
+      - "8501:8501"  # Streamlit
+    volumes:
+      - ./data:/app/data
+      - ./chroma_db:/app/chroma_db
+      - ./app:/app/app
+    environment:
+      - PYTHONPATH=/app
+      - OLLAMA_BASE_URL=http://ollama:11434
+    env_file:
+      - .env
+    restart: unless-stopped
+    depends_on:
+      ollama-setup:
+        condition: service_completed_successfully
+
+volumes:
+  ollama_data:
