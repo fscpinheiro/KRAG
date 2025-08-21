@@ -117,7 +117,7 @@ O sistema analisa automaticamente arquivos nas seguintes linguagens:
 1. **Clone o repositório:**
 ```bash
 git clone git@github.com:fscpinheiro/KRAG.git
-cd ezzrag
+cd krag
 ```
 
 2. **Execute o setup automático (Windows):**
@@ -313,7 +313,7 @@ docker exec -it <ollama_container> ollama pull gemma3:1b
 **Erro de indexação:**
 - Verifique arquivos na pasta `data/source_code/`
 - Confirme que há arquivos de código suportados
-- Check logs: `docker-compose logs ezze-rag`
+- Check logs: `docker-compose logs krag`
 
 ## Arquitetura Técnica
 

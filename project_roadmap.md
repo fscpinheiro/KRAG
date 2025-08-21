@@ -102,7 +102,7 @@ Permitir análise de qualquer projeto/repositório através de seleção de past
 
 #### Melhorias na Interface
 - Footer com estatísticas do sistema
-- Nome do projeto/EzzeRAG no cabeçalho da sidebar
+- Nome do projeto/KRAG no cabeçalho da sidebar
 - Layout mais fluido e responsivo
 - Separação clara entre seções funcionais
 
@@ -170,7 +170,7 @@ Detectar automaticamente novos modelos instalados no Ollama, mesmo que não este
 Criar documentação abrangente do projeto atual.
 
 #### Conteúdo da Documentação
-- Descrição do propósito e casos de uso do EzzeRAG
+- Descrição do propósito e casos de uso do KRAG
 - Lista completa de modelos suportados e suas características
 - Guia de instalação e configuração Docker
 - Instruções de uso passo-a-passo
